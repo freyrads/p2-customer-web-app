@@ -91,7 +91,7 @@ div.food-container {
 }
 
 .filters {
-  width: 50%;
+  width: 500px;
   margin-right: 20px;
 }
 

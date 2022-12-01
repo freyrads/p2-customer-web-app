@@ -139,6 +139,22 @@ export const useGlobalStore = defineStore('global', {
 	return this.handleError(err);
       }
     }, // removeFavoriteFood
+    async addFavoriteFood(id) {
+      try {
+	// request and refetch favorite food
+	const response = await ax.post("/favorites", {
+	  id,
+	}, {
+	  headers: {
+	    access_token: this.getAccessToken(),
+	  },
+	});
+
+	await this.fetchFavoriteFood();
+      } catch (err) {
+	return this.handleError(err);
+      }
+    }, // addFavoriteFood
   },
   getters: {
     //

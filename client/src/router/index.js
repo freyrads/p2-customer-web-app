@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Favorites from "../views/Favorites.vue";
+import Food from "../views/Food.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +28,11 @@ const router = createRouter({
       name: "favorites",
       component: Favorites,
     },
+    {
+      path: "/food/:id",
+      name: "food",
+      component: Food,
+    }
   ]
 });
 
