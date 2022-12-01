@@ -24,9 +24,6 @@ export const useGlobalStore = defineStore('global', {
 	"address":"",
       },
       favorites: [],
-      filter: {
-	category: [],
-      },
       food: [],
       categories: [],
     };
@@ -97,13 +94,17 @@ export const useGlobalStore = defineStore('global', {
 	return this.handleError(err);
       }
     }, // fetchCategories
-    async fetchFood() {
+    async fetchFood(filter) {
       try {
 	// request and refetch favorite food
 	const response = await ax.get("/food", {
 	  headers: {
 	    access_token: this.getAccessToken(),
 	  },
+	  params: {
+	    search: filter?.name,
+	    cat: filter?.category,
+	  }
 	});
 
 	this.food = response.data;

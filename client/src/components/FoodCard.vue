@@ -65,6 +65,7 @@ export default {
 div.card {
   box-shadow: 0px 0px 4px 0px black;
   width: 400px;
+  background-color: white;
 }
 
 .r10 {

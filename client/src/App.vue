@@ -13,4 +13,8 @@ export default {
   <router-view />
 </template>
 
-<style></style>
+<style>
+body {
+  background-color: aliceblue;
+}
+</style>

@@ -1,6 +1,7 @@
 <script>
 import {mapActions, mapWritableState} from 'pinia';
 import FoodCard from '../components/FoodCard.vue';
+import {useFilterStore} from '../stores/filter';
 import {useGlobalStore} from '../stores/global';
 
 export default {
@@ -20,7 +21,8 @@ export default {
     };
   },
   computed: {
-      ...mapWritableState(useGlobalStore, ["filter", "food", "categories"]),
+      ...mapWritableState(useGlobalStore, ["food", "categories"]),
+      ...mapWritableState(useFilterStore, ["filter", ]),
   },
   components: { FoodCard },
   methods: {
@@ -29,6 +31,16 @@ export default {
   async created() {
     await this.fetchFood();
     await this.fetchCategories();
+
+    const store = useFilterStore();
+
+    store.$subscribe((mutation, state) => {
+      if (["category", "name"].includes(mutation.events.key)) {
+	this.fetchFood(
+	  store.filter
+	);
+      }
+    })
   }
 };
 </script>
@@ -42,11 +54,11 @@ export default {
     <h1>Homepage</h1>
     <div class="container flex">
       <div class="filters">
-	<form class="filter-category">
+	<form @submit.prevent="" class="filter-category">
 	  <div class="filter-title">
 	    <h3>Food Category</h3>
 	  </div>
-	  <div v-for="(data, i) in categories" :key="data.id" class="flex">
+	  <div v-for="(data, i) in categories" :key="data.id" class="flex gb">
 	    <div class="grow">
 	      <label :for="data.name">{{ data.name }}</label>
 	    </div>
@@ -55,11 +67,13 @@ export default {
 	    </div>
 	  </div>
 	</form>
-	<form @submit.prevent="filter">
-	  
-	</form>
-	<form @submit.prevent="filter">
-	  
+	<form @submit.prevent="" class="filter-name">
+	  <div class="filter-title">
+	    <h3>Search</h3>
+	    <div>
+	      <input v-model="filter.name" type="text" name="name" placeholder="Search" class="w100">
+	    </div>
+	  </div>
 	</form>
       </div>
       <div class="food-container flex wrap">
@@ -72,6 +86,10 @@ export default {
 <style>
 .flex {
   display: flex;
+}
+
+.w100 {
+  width: 96%;
 }
 
 div.food-container {
@@ -91,15 +109,19 @@ div.food-container {
 }
 
 .filters {
-  width: 500px;
+  min-width: fit-content;
+  height: fit-content;
   margin-right: 20px;
+  background-color: silver;
+  box-shadow: 0px 0px 10000px grey;
 }
 
-.filters form {
+.filters {
+  padding-bottom: 21px;
 }
 
-.filters form div:not(.filter-title) {
-  background-color: aliceblue;
+.filters form div.gb {
+  background-color: #dde4e9;
   margin: 4px;
   padding: 4px 8px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
