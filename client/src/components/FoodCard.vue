@@ -9,6 +9,13 @@ export default {
     formatPrice(price) {
       return price.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
     },
+    triggerRemoveFavoriteFood(id) {
+      this.removeFavoriteFood(id)
+      .then(route => {
+	if (route)
+	  this.$router.push(route);
+      });
+    },
   },
 }
 </script>
@@ -25,7 +32,7 @@ export default {
 	<p>{{ data.description }}</p>
 	<span class="price">{{ formatPrice(data.price) }}</span>
       </div>
-      <button v-if="favorite" @click.prevent="removeFavoriteFood(data.id)">
+      <button v-if="favorite" @click.prevent="triggerRemoveFavoriteFood(data.id)">
 	Remove from favorites
       </button>
     </div>

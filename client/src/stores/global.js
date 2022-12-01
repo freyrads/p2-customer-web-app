@@ -12,6 +12,11 @@ export const useGlobalStore = defineStore('global', {
   state: () => {
     return {
       user: null,
+      loginForm: {
+	email: "",
+	password: "",
+      },
+      favorites: [],
     };
   },
   actions: {
@@ -23,6 +28,8 @@ export const useGlobalStore = defineStore('global', {
 	this.logout();
 	return 'login';
       }
+
+      console.error("[WARN] UNHANDLED ERROR");
     }, // handleError
     setAccessToken(data) {
       return localStorage.setItem("access_token", data.access_token);
@@ -33,11 +40,14 @@ export const useGlobalStore = defineStore('global', {
     clearLocalStorage() {
       return localStorage.clear();
     }, // clearLocalStorage
+    async login() {
+      ;
+    }, // login
     logout() {
 	this.user = null;
 	this.clearLocalStorage();
     }, // logout
-    async removeFavoriteFood(id) {
+    async fetchFavoriteFood() {
       try {
 	// request and refetch favorite food
 	const response = await ax.get("/favorites", {
@@ -45,6 +55,22 @@ export const useGlobalStore = defineStore('global', {
 	    access_token: this.getAccessToken(),
 	  },
 	});
+
+	this.favorites = response.data;
+      } catch (err) {
+	return this.handleError(err);
+      }
+    }, // fetchFavoriteFood
+    async removeFavoriteFood(id) {
+      try {
+	// request and refetch favorite food
+	const response = await ax.delete("/favorites/"+id, {
+	  headers: {
+	    access_token: this.getAccessToken(),
+	  },
+	});
+
+	await this.fetchFavoriteFood();
       } catch (err) {
 	return this.handleError(err);
       }
