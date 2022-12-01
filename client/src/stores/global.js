@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 import axios from "axios";
 
 const ax = axios.create({
-  baseUrl: "http://localhost:3000/public",
+  baseURL: "http://localhost:3000/public",
 });
 
 export const useGlobalStore = defineStore('global', {
@@ -16,7 +16,19 @@ export const useGlobalStore = defineStore('global', {
 	email: "",
 	password: "",
       },
+      signupForm: {
+	"username":"",
+	"email":"",
+	"password":"",
+	"phoneNumber":"",
+	"address":"",
+      },
       favorites: [],
+      filter: {
+	category: [],
+      },
+      food: [],
+      categories: [],
     };
   },
   actions: {
@@ -40,13 +52,65 @@ export const useGlobalStore = defineStore('global', {
     clearLocalStorage() {
       return localStorage.clear();
     }, // clearLocalStorage
+    setCredentials(data) {
+      this.user = data.user;
+      this.setAccessToken(data);
+    }, // setCredentials
+    clearCredentials() {
+      this.user = null;
+      this.clearLocalStorage();
+    }, // clearCredentials
     async login() {
-      ;
+      try {
+	const response = await ax.post("/login", this.loginForm);
+
+	this.setCredentials(response.data);
+	return "/";
+      } catch (err) {
+	return this.handleError(err);
+      }
     }, // login
+    async signup() {
+      try {
+	const response = await ax.post("/register", this.signupForm);
+
+	this.setCredentials(response.data);
+	return "/";
+      } catch (err) {
+	return this.handleError(err);
+      }
+    }, // signup
     logout() {
-	this.user = null;
-	this.clearLocalStorage();
+      this.clearCredentials();
     }, // logout
+    async fetchCategories() {
+      try {
+	// request and refetch favorite food
+	const response = await ax.get("/categories", {
+	  headers: {
+	    access_token: this.getAccessToken(),
+	  },
+	});
+
+	this.categories = response.data;
+      } catch (err) {
+	return this.handleError(err);
+      }
+    }, // fetchCategories
+    async fetchFood() {
+      try {
+	// request and refetch favorite food
+	const response = await ax.get("/food", {
+	  headers: {
+	    access_token: this.getAccessToken(),
+	  },
+	});
+
+	this.food = response.data;
+      } catch (err) {
+	return this.handleError(err);
+      }
+    }, // fetchFood
     async fetchFavoriteFood() {
       try {
 	// request and refetch favorite food

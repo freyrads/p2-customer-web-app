@@ -23,12 +23,13 @@ export default {
 <template>
   <div class="card food r10">
     <div class="image">
-      <img :src="data.imageUrl" alt="food image">
+      <img :src="data.imgUrl" alt="food image">
     </div>
     <div class="description">
       <div class="yellow-btn">{{ data.Category.name }}</div>
       <div class="desc">
 	<h2>{{ data.name }}</h2>
+	<p>{{ data.status }}</p>
 	<p>{{ data.description }}</p>
 	<span class="price">{{ formatPrice(data.price) }}</span>
       </div>
@@ -42,7 +43,7 @@ export default {
 <style>
 div.card {
   box-shadow: 0px 0px 4px 0px black;
-  width: 280px;
+  width: 400px;
 }
 
 .r10 {
@@ -70,7 +71,7 @@ div.card .description .desc {
 }
 
 div.card .image {
-  height: 180px;
+  height: 300px;
   overflow: scroll;
 }
 
@@ -80,12 +81,16 @@ div.card .image::-webkit-scrollbar {
 
 div.card .image img {
   border-radius: 10px 10px 0px 0px;
-  width: 280px;
+  width: 400px;
 }
 
 span.price {
   color: darkblue;
   font-size: large;
   font-weight: bold;
+}
+
+div.card.food {
+  margin: 20px;
 }
 </style>
