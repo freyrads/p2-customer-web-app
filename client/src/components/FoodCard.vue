@@ -91,6 +91,13 @@ div.action-btn button {
   margin: 0px 12px 12px 12px;
   padding: 12px;
   border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+div.action-btn button:hover {
+  background-color: aliceblue;
+  transition: .2s;
 }
 
 div.card .description .yellow-btn {

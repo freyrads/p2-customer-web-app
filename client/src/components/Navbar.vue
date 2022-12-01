@@ -11,9 +11,19 @@ export default {
 
 <template>
   <nav class="navbar">
-    <router-link to="/">
-      <h1>Hello World!</h1>
-    </router-link>
+    <div class="flex grow">
+      <router-link to="/">
+	<h1 class="logo">Food Corner</h1>
+      </router-link>
+    <ul v-if="user !== null">
+      <li>
+	<router-link to="/">Home</router-link>
+      </li>
+      <li>
+	<router-link to="/favorites">Favorites</router-link>
+      </li>
+    </ul>
+    </div>
     <ul v-if="user === null">
       <li>
 	<router-link to="/login">Login</router-link>
@@ -22,15 +32,39 @@ export default {
 	<router-link to="/signup">Sign Up</router-link>
       </li>
     </ul>
-    <ul v-else >
-      <li>
-	<router-link to="/">Home</router-link>
-      </li>
-      <li>
-	<router-link to="/favorites">Favorites</router-link>
-      </li>
-    </ul>
   </nav>
 </template>
 
-<style></style>
+<style>
+nav {
+  display: flex;
+}
+
+nav a {
+  color: black;
+  text-decoration: none;
+  font-size: large;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  margin: 0px;
+  padding: 10px;
+}
+
+nav ul li {
+  list-style: none;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+nav ul li:hover {
+  background-color: lightgray;
+}
+.logo {
+  font-size: xx-large;
+}
+</style>
