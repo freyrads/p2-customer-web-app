@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <FoodCard />
+  <!-- <FoodCard :favorite="true" :data="{}"/> -->
   <router-link to="/world">
     World
   </router-link>
