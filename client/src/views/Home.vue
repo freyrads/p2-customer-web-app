@@ -1,7 +1,15 @@
-<script></script>
+<script>
+import FoodCard from "../components/FoodCard.vue"
+
+export default {
+  components: {
+    FoodCard,
+  }, // components
+};
+</script>
 
 <template>
-  <h1>Hello World!</h1>
+  <FoodCard />
   <router-link to="/world">
     World
   </router-link>
