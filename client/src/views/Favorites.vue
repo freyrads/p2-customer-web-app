@@ -10,8 +10,8 @@ export default {
     methods: {
         ...mapActions(useGlobalStore, ["fetchFavoriteFood"]),
     },
-    created() {
-        this.fetchFavoriteFood();
+    async created() {
+        await this.fetchFavoriteFood();
     },
     components: { FoodCard }
 };
@@ -19,10 +19,10 @@ export default {
 
 <template>
   <section>
-    <h1>Homepage</h1>
+    <h1>Your Favorites</h1>
     <div class="container flex">
       <div class="food-container flex wrap">
-	<FoodCard v-for="(data, i) in favorites" :key="data.id" :data="data" favorite />
+	<FoodCard v-for="(data, i) in favorites" :key="data.id" :data="data" favorite="true" />
       </div>
     </div>
   </section>

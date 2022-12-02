@@ -3,8 +3,15 @@ import {mapActions, mapWritableState} from 'pinia';
 import FoodCard from '../components/FoodCard.vue';
 import {useFilterStore} from '../stores/filter';
 import {useGlobalStore} from '../stores/global';
+// import { vue3Debounce } from "vue-debounce";
 
 export default {
+  // directives: {
+  //   debounce: vue3Debounce({
+  //     lock: true,
+  //     listenTo: ['input', 'keyup']
+  //   }),
+  // },
   data() {
     return {
       dummyFood: {
@@ -71,13 +78,25 @@ export default {
 	  <div class="filter-title">
 	    <h3>Search</h3>
 	    <div>
+	      <!-- v-debounce:300ms="fetchFood(filter)"  -->
 	      <input v-model="filter.name" type="text" name="name" placeholder="Search" class="w100">
 	    </div>
 	  </div>
 	</form>
       </div>
-      <div class="food-container flex wrap">
-	<FoodCard v-for="(data, i) in food" :key="data.id" :data="data" favorite/>
+      <div class="div-food-container">
+	<div class="food-container flex wrap">
+	  <FoodCard v-for="(data, i) in food" :key="data.id" :data="data" favorite/>
+	</div>
+	<div class="btn-paginate-container flex center">
+	  <button class="btn-paginate"></button>
+	  <button class="btn-paginate"></button>
+	  <button class="btn-paginate"></button>
+	  <button class="btn-paginate"></button>
+	  <button class="btn-paginate"></button>
+	  <button class="btn-paginate"></button>
+	  <button class="btn-paginate"></button>
+	</div>
       </div>
     </div>
   </section>
@@ -92,7 +111,16 @@ export default {
   width: 96%;
 }
 
-div.food-container {
+div.btn-paginate-container {
+  gap: 6px;
+  padding: 6px;
+  background-color: white;
+}
+
+button.btn-paginate {
+  border: 1px solid black;
+  padding: 20px;
+  background-color: white;
 }
 
 .wrap {
@@ -101,6 +129,10 @@ div.food-container {
 
 .grow {
   flex-grow: 1;
+}
+
+.center {
+  justify-content: center;
 }
 
 .filter-title {

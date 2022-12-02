@@ -26,7 +26,7 @@ export default {
       <input v-model="loginForm.email" type="text" name="email" placeholder="Email" required>
     </div>
     <div>
-      <input v-model="loginForm.password" type="text" name="password" placeholder="Password" required>
+      <input v-model="loginForm.password" type="password" name="password" placeholder="Password" required>
     </div>
     <div>
       <input type="submit" value="Login">

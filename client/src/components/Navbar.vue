@@ -1,10 +1,16 @@
 <script>
-import {mapState} from 'pinia';
+import {mapActions, mapState} from 'pinia';
 import {useGlobalStore} from '../stores/global';
 
 export default {
   computed: {
     ...mapState(useGlobalStore, ['user']),
+  },
+  methods: {
+    ...mapActions(useGlobalStore, ["logout"]),
+    triggerLogout() {
+      this.$router.push(this.logout());
+    }
   },
 };
 </script>
@@ -30,6 +36,11 @@ export default {
       </li>
       <li>
 	<router-link to="/signup">Sign Up</router-link>
+      </li>
+    </ul>
+    <ul v-else>
+      <li>
+	<a @click.prevent="triggerLogout" href="" >Logout</a>
       </li>
     </ul>
   </nav>

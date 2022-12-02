@@ -47,7 +47,7 @@ export default {
     <div class="lower-card">
       <div class="price">{{ formatPrice(data.price) }}</div>
       <div class="action-btn flex column">
-	<button v-if="favorite" @click.prevent="triggerRemoveFavoriteFood(data.id)">
+	<button v-if="favorite" @click.prevent="triggerRemoveFavoriteFood(data.FavoriteFoods[0].id)">
 	  Remove from favorites
 	</button>
 	<button v-else @click.prevent="triggerAddFavoriteFood(data.id)">

@@ -51,7 +51,7 @@ export default {
 	<label for="phoneNumber">Phone Number:</label>
       </div>
       <div>
-	<input v-model="signupForm.phoneNumber" type="text" name="phoneNumber" placeholder="Phone Number" required>
+	<input v-model="signupForm.phoneNumber" type="text" name="phoneNumber" placeholder="Phone Number">
       </div>
     </div>
     <div>
@@ -59,7 +59,7 @@ export default {
 	<label for="address">Address:</label>
       </div>
       <div>
-	<input v-model="signupForm.address" type="text" name="address" placeholder="Address" required>
+	<input v-model="signupForm.address" type="text" name="address" placeholder="Address">
       </div>
     </div>
     <div>

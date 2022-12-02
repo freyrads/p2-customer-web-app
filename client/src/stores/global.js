@@ -3,6 +3,7 @@
 // import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const ax = axios.create({
   baseURL: "http://localhost:3000/public",
@@ -32,10 +33,35 @@ export const useGlobalStore = defineStore('global', {
     //
     handleError(err) {
       console.error(err);
+      // swal
+      if (typeof err.response?.data.error === "string") {
+	Swal.fire({
+	  position: 'top-end',
+	  icon: 'error',
+	  title: err.response.data.error,
+	  showConfirmButton: false,
+	  timer: 5000,
+	  timerProgressBar: true,
+	});
+      }
+
+      if (typeof err.response?.data.errors?.[0] === "string") {
+	Swal.fire({
+	  position: 'top-end',
+	  icon: 'error',
+	  title: err.response?.data.errors?.[0],
+	  showConfirmButton: false,
+	  timer: 5000,
+	  timerProgressBar: true,
+	});
+      }
 
       if (err.response?.status === 401) {
-	this.logout();
-	return 'login';
+	return this.logout();
+      }
+
+      if (err.response?.data.error === "This menu is already in your favorite list") {
+	return "/favorites";
       }
 
       console.error("[WARN] UNHANDLED ERROR");
@@ -60,6 +86,7 @@ export const useGlobalStore = defineStore('global', {
     async login() {
       try {
 	const response = await ax.post("/login", this.loginForm);
+	// console.log(response.data);
 
 	this.setCredentials(response.data);
 	return "/";
@@ -70,6 +97,7 @@ export const useGlobalStore = defineStore('global', {
     async signup() {
       try {
 	const response = await ax.post("/register", this.signupForm);
+	// console.log(response.data);
 
 	this.setCredentials(response.data);
 	return "/";
@@ -79,6 +107,7 @@ export const useGlobalStore = defineStore('global', {
     }, // signup
     logout() {
       this.clearCredentials();
+      return 'login';
     }, // logout
     async fetchCategories() {
       try {
@@ -120,6 +149,7 @@ export const useGlobalStore = defineStore('global', {
 	    access_token: this.getAccessToken(),
 	  },
 	});
+	// console.log(response.data);
 
 	this.favorites = response.data;
       } catch (err) {
@@ -152,6 +182,7 @@ export const useGlobalStore = defineStore('global', {
 	});
 
 	await this.fetchFavoriteFood();
+	return "/favorites";
       } catch (err) {
 	return this.handleError(err);
       }
