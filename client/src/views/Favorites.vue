@@ -19,7 +19,9 @@ export default {
 
 <template>
   <section>
-    <h1>Your Favorites</h1>
+    <div class="page-title">
+      <h1>Your Favorites</h1>
+    </div>
     <div class="container flex">
       <div class="food-container flex wrap">
 	<FoodCard v-for="(data, i) in favorites" :key="data.id" :data="data" favorite="true" />

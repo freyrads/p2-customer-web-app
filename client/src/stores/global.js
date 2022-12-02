@@ -9,6 +9,8 @@ const ax = axios.create({
   baseURL: "http://localhost:3000/public",
 });
 
+let preloaderCounter = 0;
+
 export const useGlobalStore = defineStore('global', {
   state: () => {
     return {
@@ -31,6 +33,16 @@ export const useGlobalStore = defineStore('global', {
   },
   actions: {
     //
+    loading() {
+      preloaderCounter++;
+      if (preloaderCounter === 0) return;
+      document.getElementById("preloader").classList.add("active");
+    },
+    stopLoading() {
+      preloaderCounter--;
+      if (preloaderCounter === 0)
+	document.getElementById("preloader").classList.remove("active");
+    },
     handleError(err) {
       console.error(err);
       // swal
@@ -85,23 +97,29 @@ export const useGlobalStore = defineStore('global', {
     }, // clearCredentials
     async login() {
       try {
+	this.loading();
 	const response = await ax.post("/login", this.loginForm);
 	// console.log(response.data);
 
 	this.setCredentials(response.data);
+	this.stopLoading();
 	return "/";
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // login
     async signup() {
       try {
+	this.loading();
 	const response = await ax.post("/register", this.signupForm);
 	// console.log(response.data);
 
 	this.setCredentials(response.data);
+	this.stopLoading();
 	return "/";
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // signup
@@ -112,20 +130,24 @@ export const useGlobalStore = defineStore('global', {
     async fetchCategories() {
       try {
 	// request and refetch favorite food
+	this.loading();
 	const response = await ax.get("/categories", {
 	  headers: {
 	    access_token: this.getAccessToken(),
 	  },
 	});
 
+	this.stopLoading();
 	this.categories = response.data;
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // fetchCategories
     async fetchFood(filter) {
       try {
 	// request and refetch favorite food
+	this.loading();
 	const response = await ax.get("/food", {
 	  headers: {
 	    access_token: this.getAccessToken(),
@@ -136,14 +158,17 @@ export const useGlobalStore = defineStore('global', {
 	  }
 	});
 
+	this.stopLoading();
 	this.food = response.data;
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // fetchFood
     async fetchFavoriteFood() {
       try {
 	// request and refetch favorite food
+	this.loading();
 	const response = await ax.get("/favorites", {
 	  headers: {
 	    access_token: this.getAccessToken(),
@@ -151,13 +176,16 @@ export const useGlobalStore = defineStore('global', {
 	});
 	// console.log(response.data);
 
+	this.stopLoading();
 	this.favorites = response.data;
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // fetchFavoriteFood
     async removeFavoriteFood(id) {
       try {
+	this.loading();
 	// request and refetch favorite food
 	const response = await ax.delete("/favorites/"+id, {
 	  headers: {
@@ -166,12 +194,15 @@ export const useGlobalStore = defineStore('global', {
 	});
 
 	await this.fetchFavoriteFood();
+	this.stopLoading();
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // removeFavoriteFood
     async addFavoriteFood(id) {
       try {
+	this.loading();
 	// request and refetch favorite food
 	const response = await ax.post("/favorites", {
 	  id,
@@ -182,8 +213,10 @@ export const useGlobalStore = defineStore('global', {
 	});
 
 	await this.fetchFavoriteFood();
+	this.stopLoading();
 	return "/favorites";
       } catch (err) {
+	this.stopLoading();
 	return this.handleError(err);
       }
     }, // addFavoriteFood

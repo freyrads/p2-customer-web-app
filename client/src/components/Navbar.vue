@@ -49,6 +49,11 @@ export default {
 <style>
 nav {
   display: flex;
+  padding: 16px 30px;
+}
+
+section h1 {
+  margin: 20px;
 }
 
 nav a {
@@ -62,6 +67,11 @@ nav ul {
   display: flex;
   margin: 0px;
   padding: 10px;
+}
+
+div.page-title {
+  text-align: center;
+  font-size: large;
 }
 
 nav ul li {

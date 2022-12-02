@@ -53,12 +53,10 @@ export default {
 </script>
 
 <template>
-  <!-- <FoodCard :favorite="true" :data="{}"/>
-  <router-link to="/world">
-    World
-  </router-link> -->
   <section>
-    <h1>Homepage</h1>
+    <div class="page-title">
+      <h1>Homepage</h1>
+    </div>
     <div class="container flex">
       <div class="filters">
 	<form @submit.prevent="" class="filter-category">
@@ -136,14 +134,14 @@ button.btn-paginate {
 }
 
 .filter-title {
-  padding: 0px 10px;
+  padding: 0px 20px;
   font-size: large;
 }
 
 .filters {
   min-width: fit-content;
   height: fit-content;
-  margin-right: 20px;
+  margin: 10px;
   background-color: silver;
   box-shadow: 0px 0px 10000px grey;
 }
