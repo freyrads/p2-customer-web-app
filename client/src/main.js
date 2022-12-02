@@ -12,19 +12,19 @@ const pinia = createPinia()
 pinia.use(({ store }) => { store.router = markRaw(router) });
 app.use(pinia)
 
-// app.use(createPinia())
+app.use(createPinia())
 
-// router.beforeEach((to, from, next) => {
-//   const { user } = useGlobalStore();
-// 
-//   if (!["login", "signup"].includes(to.name)) {
-//     if (!user) {
-//       return next("/login");
-//     }
-//   }
-// 
-//   next();
-// });
+router.beforeEach((to, from, next) => {
+  const { user } = useGlobalStore();
+
+  if (!["home", "login", "signup"].includes(to.name)) {
+    if (!user) {
+      return next("/login");
+    }
+  }
+
+  next();
+});
 
 app.use(router)
 

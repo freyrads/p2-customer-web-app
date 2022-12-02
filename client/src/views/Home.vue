@@ -77,7 +77,7 @@ export default {
 	</form>
       </div>
       <div class="food-container flex wrap">
-	<FoodCard v-for="(data, i) in food" :key="data.id" :data="data" :favorite="false" />
+	<FoodCard v-for="(data, i) in food" :key="data.id" :data="data" favorite/>
       </div>
     </div>
   </section>

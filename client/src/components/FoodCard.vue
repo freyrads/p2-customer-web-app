@@ -64,7 +64,7 @@ export default {
 <style>
 div.card {
   box-shadow: 0px 0px 4px 0px black;
-  width: 400px;
+  width: 29.6%;
   background-color: white;
 }
 
@@ -114,7 +114,7 @@ div.card .description .desc {
 }
 
 div.card .image {
-  height: 300px;
+  height: 220px;
   overflow: scroll;
 }
 
@@ -124,7 +124,7 @@ div.card .image::-webkit-scrollbar {
 
 div.card .image img {
   border-radius: 10px 10px 0px 0px;
-  width: 400px;
+  width: 100%;
 }
 
 div.price {
