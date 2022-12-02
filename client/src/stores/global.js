@@ -50,7 +50,7 @@ export const useGlobalStore = defineStore('global', {
 	Swal.fire({
 	  position: 'top-end',
 	  icon: 'error',
-	  title: err.response.data.error,
+	  title:  err.response.data.error === "Unauthorized" ? "Please login first" : err.response.data.error,
 	  showConfirmButton: false,
 	  timer: 5000,
 	  timerProgressBar: true,

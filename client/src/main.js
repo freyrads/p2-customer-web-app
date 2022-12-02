@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import Swal from "sweetalert2";
 
 const app = createApp(App)
 
@@ -18,6 +19,14 @@ router.beforeEach((to, from, next) => {
 
   if (!["home", "login", "signup"].includes(to.name)) {
     if (!access_token) {
+	Swal.fire({
+	  position: 'top-end',
+	  icon: 'error',
+	  title:  "Please login first",
+	  showConfirmButton: false,
+	  timer: 5000,
+	  timerProgressBar: true,
+	});
       return next("/login");
     }
   }
