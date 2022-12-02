@@ -116,9 +116,10 @@ div.btn-paginate-container {
 }
 
 button.btn-paginate {
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 20px;
   background-color: white;
+  font-weight: bold;
 }
 
 .wrap {

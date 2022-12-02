@@ -29,6 +29,7 @@ export const useGlobalStore = defineStore('global', {
       favorites: [],
       food: [],
       categories: [],
+      detailFood: null,
     };
   },
   actions: {
@@ -220,6 +221,24 @@ export const useGlobalStore = defineStore('global', {
 	return this.handleError(err);
       }
     }, // addFavoriteFood
+    async fetchDetailFood(id) {
+      try {
+	this.loading();
+
+	const response = await ax.get("/food/"+id, {
+	  headers: {
+	    access_token: this.getAccessToken(),
+	  },
+	});
+
+	console.log(response.data);
+	this.detailFood = response.data;
+	this.stopLoading();
+      } catch (err) {
+	this.stopLoading();
+	return this.handleError(err);
+      }
+    }, // fetchDetailFood
   },
   getters: {
     //
