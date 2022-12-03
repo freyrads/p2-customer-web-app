@@ -45,7 +45,7 @@ export default {
     const store = useFilterStore();
 
     store.$subscribe((mutation, state) => {
-      if (["category", "name"].includes(mutation.events.key)) {
+      if (state.filter) {
 	this.fetchFood(
 	  store.filter
 	);
