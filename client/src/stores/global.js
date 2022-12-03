@@ -131,7 +131,7 @@ export const useGlobalStore = defineStore('global', {
     }, // signup
     logout() {
       this.clearCredentials();
-      return 'login';
+      return '/login';
     }, // logout
     async fetchCategories() {
       try {
