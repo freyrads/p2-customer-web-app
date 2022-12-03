@@ -73,7 +73,6 @@ div.card {
 }
 
 div.card .description {
-  background-color: white;
   border-radius: 0px 0px 10px 10px;
   position: relative;
   padding: 10px;
