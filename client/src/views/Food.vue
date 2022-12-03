@@ -25,12 +25,10 @@ export default {
       });
     },
   },
-  created() {
-    this.fetchDetailFood(this.$route.params.id)
-      .then((route) => {
-	if (route)
-	  this.$router.push(route);
-      });
+  async created() {
+    const route = await this.fetchDetailFood(this.$route.params.id)
+    if (route)
+      this.$router.push(route);
   },
 };
 </script>

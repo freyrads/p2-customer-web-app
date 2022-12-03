@@ -11,7 +11,9 @@ export default {
         ...mapActions(useGlobalStore, ["fetchFavoriteFood"]),
     },
     async created() {
-        await this.fetchFavoriteFood();
+        const route = await this.fetchFavoriteFood();
+	if (route)
+	  this.$router.push(route);
     },
     components: { FoodCard }
 };
