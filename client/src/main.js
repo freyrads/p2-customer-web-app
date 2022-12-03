@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
   }
   else if (["login", "register"].includes(to.name)) {
     if (access_token) {
-      return next(from.path);
+      return next(from.path || "/");
     }
   }
 
