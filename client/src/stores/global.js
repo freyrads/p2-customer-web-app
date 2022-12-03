@@ -252,6 +252,25 @@ export const useGlobalStore = defineStore('global', {
 	return this.handleError(err);
       }
     }, // fetchDetailFood
+    async googleLogin(data) {
+      try {
+	this.loading();
+	const res = await ax.get("/auth/google-sign-in", {
+	  headers: {
+	    google_auth: data.credential,
+	  }
+	});
+
+	this.setCredentials(res.data);
+	this.user = true;
+
+	this.stopLoading();
+	return "/";
+      } catch (err) {
+	this.stopLoading();
+	this.handleErrors(err);
+      }
+    }, // googleLogin
   },
   getters: {
     //

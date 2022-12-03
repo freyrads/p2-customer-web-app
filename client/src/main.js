@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 import Swal from "sweetalert2";
 import VueAwesomePaginate from "vue-awesome-paginate";
+import vue3GoogleLogin from 'vue3-google-login'
 
 // import the necessary css file
 import "vue-awesome-paginate/dist/style.css";
@@ -12,7 +13,12 @@ import "vue-awesome-paginate/dist/style.css";
 // Register the package
 
 const app = createApp(App)
+
 app.use(VueAwesomePaginate)
+app.use(vue3GoogleLogin, {
+  clientId: '778738353127-d7njei1qj3pd1rcves41joffi5lobtce.apps.googleusercontent.com'
+});
+
 
 // enable router access inside stores
 const pinia = createPinia()

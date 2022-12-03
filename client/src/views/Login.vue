@@ -7,9 +7,16 @@ export default {
     ...mapWritableState(useGlobalStore, ["loginForm"]),
   },
   methods: {
-    ...mapActions(useGlobalStore, ["login"]),
+    ...mapActions(useGlobalStore, ["login", "googleLogin"]),
     triggerLogin() {
       this.login()
+      .then(route => {
+	if (route)
+	  this.$router.push(route);
+      });
+    },
+    triggerGoogleLogin(data) {
+      this.googleLogin(data)
       .then(route => {
 	if (route)
 	  this.$router.push(route);
@@ -32,6 +39,9 @@ export default {
 	</div>
 	<div>
 	  <input type="submit" value="Login">
+	</div>
+	<div class="center">
+	  <GoogleLogin :callback="triggerGoogleLogin" prompt />
 	</div>
 	<div>
 	  Don't have an account? <router-link to="/signup">Sign Up!</router-link>
