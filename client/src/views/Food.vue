@@ -4,10 +4,10 @@ import {useGlobalStore} from '../stores/global';
 
 export default {
   computed: {
-    ...mapState(useGlobalStore, ['detailFood']),
+    ...mapState(useGlobalStore, ['detailFood', "qrcode"]),
   },
   methods: {
-    ...mapActions(useGlobalStore, ["fetchDetailFood", "removeFavoriteFood", "addFavoriteFood"]),
+    ...mapActions(useGlobalStore, ["fetchDetailFood", "removeFavoriteFood", "addFavoriteFood", "fetchQRCode"]),
     formatPrice(price) {
       return price.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
     },
@@ -26,7 +26,9 @@ export default {
     },
   },
   async created() {
-    const route = await this.fetchDetailFood(this.$route.params.id)
+    let route = await this.fetchDetailFood(this.$route.params.id);
+    const loc = window.location.href;
+    if (!route) route = await this.fetchQRCode(loc);
     if (route)
       this.$router.push(route);
   },
@@ -54,6 +56,12 @@ export default {
       </div>
     </div>
   </section>
+  <div class="qrcode-all-container flex center">
+    <div class="text-center">
+      <h1>Scan the QR Code below</h1>
+      <img v-if="qrcode" :src="qrcode.qrcode" :style="{ width: qrcode.size.width + 'px', height: qrcode.size.height + 'px' }" alt="" />
+    </div>
+  </div>
 </template>
 
 <style>
@@ -69,7 +77,15 @@ export default {
   width: 50vw;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .image {
   text-align: center;
+}
+
+.qrcode-container {
+  margin: 40px;
 }
 </style>

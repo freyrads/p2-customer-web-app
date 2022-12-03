@@ -35,6 +35,7 @@ export const useGlobalStore = defineStore('global', {
 	totalItems: 0,
 	itemsPerPage: 0,
       },
+      qrcode: null,
     };
   },
   actions: {
@@ -244,7 +245,7 @@ export const useGlobalStore = defineStore('global', {
 	  },
 	});
 
-	console.log(response.data);
+	// console.log(response.data);
 	this.detailFood = response.data;
 	this.stopLoading();
       } catch (err) {
@@ -271,6 +272,24 @@ export const useGlobalStore = defineStore('global', {
 	return this.handleError(err);
       }
     }, // googleLogin
+    async fetchQRCode(str) {
+      try {
+	this.loading();
+
+	const response = await ax.get(`/qrcode?code=${str}`, {
+	  headers: {
+	    access_token: this.getAccessToken(),
+	  },
+	});
+
+	console.log(response.data);
+	this.qrcode = response.data;
+	this.stopLoading();
+      } catch (err) {
+	this.stopLoading();
+	return this.handleError(err);
+      }
+    }, // fetchDetailFood
   },
   getters: {
     //
