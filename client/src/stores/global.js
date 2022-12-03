@@ -268,7 +268,7 @@ export const useGlobalStore = defineStore('global', {
 	return "/";
       } catch (err) {
 	this.stopLoading();
-	this.handleErrors(err);
+	return this.handleError(err);
       }
     }, // googleLogin
   },
