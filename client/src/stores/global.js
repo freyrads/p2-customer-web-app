@@ -30,6 +30,11 @@ export const useGlobalStore = defineStore('global', {
       food: [],
       categories: [],
       detailFood: null,
+      pageInfo: {
+	currentPage: 0,
+	totalItems: 0,
+	itemsPerPage: 0,
+      },
     };
   },
   actions: {
@@ -156,11 +161,19 @@ export const useGlobalStore = defineStore('global', {
 	  params: {
 	    search: filter?.name,
 	    cat: filter?.category,
+	    page: filter?.page,
 	  }
 	});
 
 	this.stopLoading();
-	this.food = response.data;
+
+	if ((response.data.pageInfo.totalItems <= response.data.pageInfo.itemsPerPage) && (response.data.pageInfo.currentPage > 1)) {
+	  filter.page = 1;
+	  return this.fetchFood(filter);
+	}
+
+	this.food = response.data.food;
+	this.pageInfo = response.data.pageInfo;
       } catch (err) {
 	this.stopLoading();
 	return this.handleError(err);

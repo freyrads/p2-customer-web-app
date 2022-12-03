@@ -7,6 +7,7 @@ export const useFilterStore = defineStore("filter", {
       filter: {
 	category: [],
 	name: "",
+	page: 1,
       },
     };
   },

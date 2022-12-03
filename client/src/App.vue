@@ -30,13 +30,10 @@ body {
   margin: 0px;
 }
 
-#preloader {
-}
-
 #preloader.active {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   background-color: #00000040;
   transition: .5s;
 }

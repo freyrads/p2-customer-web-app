@@ -45,7 +45,7 @@ export default {
 	    <label for="password">Password:</label>
 	  </div>
 	  <div>
-	    <input v-model="signupForm.password" type="text" name="password" placeholder="Password" required>
+	    <input v-model="signupForm.password" type="password" name="password" placeholder="Password" required>
 	  </div>
 	</div>
 	<div>
