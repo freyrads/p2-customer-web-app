@@ -55,7 +55,6 @@ export const useGlobalStore = defineStore('global', {
       // swal
       if (typeof err.response?.data.error === "string") {
 	Swal.fire({
-	  position: 'top-end',
 	  icon: 'error',
 	  title:  err.response.data.error === "Unauthorized" ? "Please login first" : err.response.data.error,
 	  showConfirmButton: false,
@@ -83,6 +82,9 @@ export const useGlobalStore = defineStore('global', {
 	return "/favorites";
       }
 
+      if (err.response?.data.error === "Food not found") {
+	return "/";
+      }
       console.error("[WARN] UNHANDLED ERROR");
     }, // handleError
     setAccessToken(data) {

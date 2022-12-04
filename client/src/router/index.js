@@ -4,6 +4,7 @@ import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Favorites from "../views/Favorites.vue";
 import Food from "../views/Food.vue";
+import NotFound from "../views/NotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -32,6 +33,10 @@ const router = createRouter({
       path: "/food/:id",
       name: "food",
       component: Food,
+    },
+    {
+      path: "/:pathName(.*)",
+      component: NotFound,
     }
   ]
 });

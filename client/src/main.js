@@ -28,6 +28,7 @@ pinia.use(({ store }) => {
 app.use(pinia)
 
 router.beforeEach((to, from, next) => {
+  if (!to.name) return;
   const access_token = localStorage.getItem("access_token");
 
   if (!["home", "login", "signup"].includes(to.name)) {
