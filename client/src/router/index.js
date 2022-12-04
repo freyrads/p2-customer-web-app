@@ -34,10 +34,7 @@ const router = createRouter({
       name: "food",
       component: Food,
     },
-    {
-      path: "/:pathName(.*)",
-      component: NotFound,
-    }
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 });
 

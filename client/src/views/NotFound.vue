@@ -1,7 +1,9 @@
 <script></script>
 
 <template>
-  <h1>404 NOT FOUND</h1>
+  <div class="flex center">
+    <h1>404 NOT FOUND</h1>
+  </div>
 </template>
 
 <style></style>

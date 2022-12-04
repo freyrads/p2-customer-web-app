@@ -6,7 +6,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 
 const ax = axios.create({
-  baseURL: "http://localhost:3000/public",
+  baseURL: "https://p2-cms-integration-server-production-6b83.up.railway.app/public",
 });
 
 let preloaderCounter = 0;
